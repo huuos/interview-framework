@@ -70,11 +70,6 @@ class ExampleController extends Controller
 
     public function get(Request $request): string {
         $id = (int) $request->get('id');
-        return $this->view->get($id);
-    }
-
-    public function getTest(Request $request): string {
-        $id = (int) $request->get('id');
         return $this->view->getTest($id);
     }
 
@@ -88,12 +83,18 @@ class ExampleController extends Controller
     }
 
     public function add(Request $request): string
-    {
-        $first_number = $request->request->get('first-number');
-        $second_number = $request->request->get('second-number');
-    
-        $total = $first_number + $second_number;
-        return (string) $total;
+    {            
+        //Checks if input is integer/string integer
+        if(!is_numeric($first_number = $request->request->get('first-number'))) { 
+            throw new BadInputException('Value is not a integer');
+        }
+
+        if(!is_numeric($second_number = $request->request->get('second-number'))) {
+            throw new BadInputException('Value is not a integer');
+        }
+
+        $sum = $first_number + $second_number;
+        return (string) $sum;
     }
 
     

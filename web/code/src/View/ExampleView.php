@@ -41,7 +41,6 @@ class ExampleView
      */
     public function get(Example $example): string
     {
-
         if($example) {
             //Example object initalized with data
             $data = $this->model->get($example->id);
@@ -55,7 +54,6 @@ class ExampleView
             //Example object null
             throw new BadInputException('Example Object is Null');
         }
-        
     }
 
     public function getTest(int $id): string

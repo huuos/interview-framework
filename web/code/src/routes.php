@@ -8,7 +8,7 @@ declare(strict_types = 1);
 return [
     ['POST', '/example/create', ['Example\Controller\ExampleController', 'createExample']],
     ['GET', '/', ['Example\Controller\HomeController', 'index']],
-    ['GET', '/example/get', ['Example\Controller\ExampleController', 'getTest']], //Test Getting Data
+    ['GET', '/example/get', ['Example\Controller\ExampleController', 'get']], //Test Getting Data
     ['POST', '/example/set', ['Example\Controller\ExampleController', 'set']], //Test Setting Data
     ['POST', '/example/add', ['Example\Controller\ExampleController', 'add']], //Add 2 numbers server-sided
 ];
