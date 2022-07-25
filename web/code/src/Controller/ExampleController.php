@@ -6,6 +6,7 @@ namespace Example\Controller;
 
 use Example\Model\ExampleModel;
 use Example\View\ExampleView;
+use Example\Model\Example;
 use Mini\Controller\Controller;
 use Mini\Controller\Exception\BadInputException;
 use Mini\Http\Request;
@@ -58,8 +59,42 @@ class ExampleController extends Controller
             throw new BadInputException('Example description missing');
         }
 
+        $id = $this->model->create(now(), $code, $description); //Creates entry into DB and returns id
+
+        $example = new Example($id, now(), $code, $description);
+
         return $this->view->get(
-            $this->model->create(now(), $code, $description)
+            $example
         );
     }
+
+    public function get(Request $request): string {
+        $id = (int) $request->get('id');
+        return $this->view->get($id);
+    }
+
+    public function getTest(Request $request): string {
+        $id = (int) $request->get('id');
+        return $this->view->getTest($id);
+    }
+
+    public function set(Request $request): string {
+        $id = (int) $request->request->get('id');
+        $code = (string) $request->request->get('code');
+        $description = (string) $request->request->get('description');
+        $old_example_model = $this->model->get($id);
+
+        return $this->view->set($id, $code, $description, $old_example_model);
+    }
+
+    public function add(Request $request): string
+    {
+        $first_number = $request->request->get('first-number');
+        $second_number = $request->request->get('second-number');
+    
+        $total = $first_number + $second_number;
+        return (string) $total;
+    }
+
+    
 }
